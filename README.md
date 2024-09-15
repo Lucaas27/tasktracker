@@ -44,10 +44,10 @@ Project Task URL : <https://roadmap.sh/projects/task-tracker>
 
 ## :sparkles: Features
 
-:heavy_check_mark: Add a New Task: Create new tasks with a simple command
-:heavy_check_mark: Delete Task: Remove tasks by their ID.
-:heavy_check_mark: Update Task: Modify the description of an existing task.
-:heavy_check_mark: Change Task Status: Mark tasks as "To-Do", "In-Progress" or "Done".
+:heavy_check_mark: Add a New Task: Create new tasks with a simple command\
+:heavy_check_mark: Delete Task: Remove tasks by their ID.\
+:heavy_check_mark: Update Task: Modify the description of an existing task.\
+:heavy_check_mark: Change Task Status: Mark tasks as "To-Do", "In-Progress" or "Done".\
 :heavy_check_mark: List Tasks: Display all tasks or filter tasks by status.
 
 ## :white_check_mark: Requirements
