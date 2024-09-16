@@ -1,6 +1,6 @@
 namespace TaskTracker.Interaction
 {
-    public enum Commands
+    public enum Command
     {
         AddTask = 1,
         EditTask,

@@ -8,11 +8,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="App\" />
-    <Folder Include="DataAccess\" />
+    <Folder Include="Enums\" />
     <Folder Include="FileAccess\" />
     <Folder Include="Interaction\" />
     <Folder Include="Models\" />
+    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>
