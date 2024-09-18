@@ -9,11 +9,11 @@ namespace TaskTracker.App
 
         public FileMetadata(string filename, FileExtension extension)
         {
-            Filename = filename;
+            Filename = filename.ToLower();
             Extension = extension.ToString().ToLower();
         }
 
-        public string FullPath() => Filename + Extension;
+        public string FullPath() => $"{Filename}.{Extension}";
 
     }
 }

@@ -5,33 +5,47 @@ namespace TaskTracker.Interaction
     public class ConsoleInteraction : IUserInteraction
     {
 
-
-        public void PrintCommands()
+        public T SelectOption<T>() where T : struct, Enum
         {
-            PrintMessage("Choose an option:", ConsoleMessageType.Info);
-            foreach (var command in Enum.GetValues(typeof(Command)))
+            bool isInputValid;
+            T validatedInput;
+            do
             {
-                PrintMessage($"{(int)command} - {command}", ConsoleMessageType.Success);
-            }
+                var options = Enum.GetValues(typeof(T));
+                PrintMessage("Please select an option by entering a number: ", ConsoleMessageType.Info);
+                foreach (var option in options)
+                {
+                    PrintMessage($"{(int)option} - {option}", ConsoleMessageType.Success);
+                }
+
+                isInputValid = IsEnumInputValid(ReadInput(), out validatedInput);
+
+            } while (!isInputValid);
+
+            return validatedInput;
         }
 
         public string? ReadInput()
         {
-            return Console.ReadLine();
+            string? input;
+            do
+            {
+                input = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(input))
+                {
+                    PrintMessage("Invalid input. It cannot be null/empty. Please try again.", ConsoleMessageType.Error);
+                }
+            } while (string.IsNullOrWhiteSpace(input));
+
+            return input;
         }
 
-
-        public bool IsInputValid<T>(string? input, out T command) where T : struct, Enum
+        private bool IsEnumInputValid<T>(string? input, out T command) where T : struct, Enum
         {
             command = default;
 
             bool isNumber = Enum.TryParse(input, out T optionNumber);
 
-            if (string.IsNullOrWhiteSpace(input))
-            {
-                PrintMessage("Invalid input. It cannot be null/empty. Please try again.", ConsoleMessageType.Error);
-                return false;
-            }
             if (!isNumber)
             {
                 PrintMessage("Invalid input. Please enter a number and try again.", ConsoleMessageType.Error);
@@ -52,18 +66,12 @@ namespace TaskTracker.Interaction
             Console.ForegroundColor = messageType switch
             {
                 ConsoleMessageType.Error => ConsoleColor.Red,
-                ConsoleMessageType.Info => ConsoleColor.Cyan,
-                ConsoleMessageType.Success => ConsoleColor.Green,
+                ConsoleMessageType.Info => ConsoleColor.Green,
+                ConsoleMessageType.Success => ConsoleColor.Cyan,
                 _ => ConsoleColor.White
             };
             Console.WriteLine(message);
             Console.ResetColor();
-        }
-
-        public void Exit()
-        {
-            PrintMessage("Press any key to exit...", ConsoleMessageType.Info);
-            Console.ReadKey();
         }
 
     }

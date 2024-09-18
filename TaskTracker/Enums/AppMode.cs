@@ -2,8 +2,8 @@ namespace TaskTracker.Enums
 {
     public enum AppMode
     {
-        Interactive,
-        NonInteractive
-
+        Interactive = 1,
+        NonInteractive,
+        Exit
     }
 }

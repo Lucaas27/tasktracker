@@ -6,18 +6,11 @@ namespace TaskTracker.Models
     {
         public required int Id { get; set; }
         public required string Description { get; set; }
-        public required AppTaskStatus Status { get; set; }
-        public DateTime? CreatedAt { get; set; }
-        public DateTime? UpdatedAt { get; set; }
+        public required string Status { get; set; }
+        public DateTime? CreatedAt { get; set; } = null;
+        public DateTime? UpdatedAt { get; set; } = null;
 
         public AppTask() { }
-        public AppTask(string description, AppTaskStatus status, DateTime? createdAt = null, DateTime? updatedAt = null)
-        {
-            Description = description;
-            Status = status;
-            CreatedAt = createdAt;
-            UpdatedAt = updatedAt;
-        }
 
         public override string ToString()
         {

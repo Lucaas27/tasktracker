@@ -5,7 +5,7 @@ using TaskTracker.Services.Interfaces;
 
 namespace TaskTracker.Services
 {
-    public class JsonFileService : IFileService
+    public class JsonFileService<T> : IFileService<T>
     {
         private readonly FileMetadata _filemetadata;
 
@@ -13,21 +13,21 @@ namespace TaskTracker.Services
         {
             _filemetadata = filemetadata;
         }
-        public void SaveToFile(List<AppTask> data)
+        public void SaveToFile(List<T> data)
         {
             var json = JsonSerializer.Serialize(data);
             File.WriteAllText(_filemetadata.FullPath(), json);
         }
 
-        public List<AppTask> LoadFromFile()
+        public List<T> LoadFromFile()
         {
             if (!File.Exists(_filemetadata.FullPath()))
             {
-                return new List<AppTask>();
+                return new List<T>();
             }
 
             var json = File.ReadAllText(_filemetadata.FullPath());
-            return JsonSerializer.Deserialize<List<AppTask>>(json) ?? new List<AppTask>();
+            return JsonSerializer.Deserialize<List<T>>(json) ?? new List<T>();
         }
 
     }

@@ -1,8 +1,15 @@
 ﻿using TaskTracker.App;
+using TaskTracker.Enums;
 using TaskTracker.Interaction;
+using TaskTracker.Models;
+using TaskTracker.Services;
+using TaskTracker.Services.Interfaces;
 
 var consoleInteraction = new ConsoleInteraction();
-var app = new TaskManager();
+var fileFormat = FileExtension.Json;
+var fileMetadata = new FileMetadata("tasks", fileFormat);
+IFileService<AppTask> fileservice = fileFormat == FileExtension.Txt ? new TxtFileService(fileMetadata) : new JsonFileService<AppTask>(fileMetadata);
+var app = new ModeSelector(consoleInteraction, fileservice);
 
 try
 {

@@ -2,7 +2,7 @@ namespace TaskTracker.Enums
 {
     public enum AppTaskStatus
     {
-        Todo,
+        Todo = 1,
         InProgress,
         Done
     }

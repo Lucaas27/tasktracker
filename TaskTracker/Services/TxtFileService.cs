@@ -5,7 +5,7 @@ using TaskTracker.Services.Interfaces;
 
 namespace TaskTracker.Services
 {
-    public class TxtFileService : IFileService
+    public class TxtFileService : IFileService<AppTask>
     {
         private readonly FileMetadata _filemetadata;
 
@@ -41,7 +41,7 @@ namespace TaskTracker.Services
                     {
                         Id = id,
                         Description = properties[1],
-                        Status = status,
+                        Status = status.ToString().ToLower(),
                         CreatedAt = createdTime,
                         UpdatedAt = updatedTime,
                     };
