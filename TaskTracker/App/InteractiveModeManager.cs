@@ -16,11 +16,10 @@ namespace TaskTracker.App
             _commandActions = new()
             {
                 { Command.AddTask, AddTask },
-                { Command.EditTask, EditTask },
+                { Command.EditTask, UpdateTask },
                 { Command.DeleteTask, DeleteTask },
+                { Command.ListTasksByStatus, ListTasksByStatus },
                 { Command.ListAllTasks, ListAllTasks },
-                { Command.ListDoneTasks, ListDoneTasks },
-                { Command.ListTodoTasks, ListTodoTasks },
                 { Command.MarkTaskStatus, MarkTaskStatus },
                 { Command.Exit, () => _interaction.PrintMessage("Exiting... Goodbye!", ConsoleMessageType.Info)}
             };
@@ -28,29 +27,62 @@ namespace TaskTracker.App
 
         protected override void MarkTaskStatus()
         {
-            throw new NotImplementedException();
+            _interaction.PrintMessage("Enter the task ID of task to mark:", ConsoleMessageType.Info);
+            bool isIdValid = false;
+            int taskId = default;
+            while (!isIdValid)
+            {
+                isIdValid = int.TryParse(_interaction.ReadInput(), out taskId);
+                if (isIdValid) continue;
+                _interaction.PrintMessage("Invalid task ID, it needs to be an integer. Please try again", ConsoleMessageType.Error);
+            }
+            _interaction.PrintMessage("You need to select a status to update the task", ConsoleMessageType.Info);
+            var taskStatus = _interaction.SelectOption<AppTaskStatus>();
+
+            UpdateTaskInFile(taskId, taskStatus);
+            Run();
         }
 
-        protected override void ListTodoTasks()
+        protected override void ListTasksByStatus()
         {
-            throw new NotImplementedException();
-        }
+            var taskStatusToDisplay = _interaction.SelectOption<AppTaskStatus>();
 
-        protected override void ListDoneTasks()
-        {
-            throw new NotImplementedException();
-        }
+            _tasks.ForEach(t =>
+            {
+                if (t.Status == taskStatusToDisplay.ToString().ToLower())
+                    _interaction.PrintMessage(t.ToString(), ConsoleMessageType.Info);
+            });
 
+
+            Run();
+        }
         protected override void ListAllTasks()
         {
-            throw new NotImplementedException();
-        }
-        protected override void DeleteTask()
-        {
-            throw new NotImplementedException();
+            _tasks.ForEach(t =>
+            {
+                _interaction.PrintMessage(t.ToString(), ConsoleMessageType.Info);
+            });
+
+
+            Run();
         }
 
-        protected override void EditTask()
+        protected override void DeleteTask()
+        {
+            _interaction.PrintMessage("Enter the task ID to delete:", ConsoleMessageType.Info);
+            bool isIdValid = false;
+            int taskId = default;
+            while (!isIdValid)
+            {
+                isIdValid = int.TryParse(_interaction.ReadInput(), out taskId);
+                if (isIdValid) continue;
+                _interaction.PrintMessage("Invalid task ID, it needs to be an integer. Please try again", ConsoleMessageType.Error);
+            }
+            DeleteTaskInFile(taskId);
+            Run();
+        }
+
+        protected override void UpdateTask()
         {
             _interaction.PrintMessage("Enter the task ID to edit:", ConsoleMessageType.Info);
             bool isIdValid = false;
@@ -66,7 +98,7 @@ namespace TaskTracker.App
             _interaction.PrintMessage("Enter the updated description:", ConsoleMessageType.Info);
             var taskDescription = _interaction.ReadInput();
 
-            UpdateTask(taskId, taskDescription!);
+            UpdateTaskInFile(taskId, taskDescription!);
             Run();
         }
 
@@ -79,11 +111,9 @@ namespace TaskTracker.App
                 Id = GetNextId(),
                 Description = taskDescription!,
                 Status = AppTaskStatus.Todo.ToString().ToLower(),
-                CreatedAt = DateTime.Now,
-                UpdatedAt = DateTime.Now
             };
 
-            SaveTask(newTask);
+            SaveTaskToFile(newTask);
             Run();
 
         }

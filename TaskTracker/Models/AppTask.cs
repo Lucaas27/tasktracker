@@ -7,14 +7,14 @@ namespace TaskTracker.Models
         public required int Id { get; set; }
         public required string Description { get; set; }
         public required string Status { get; set; }
-        public DateTime? CreatedAt { get; set; } = null;
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime? UpdatedAt { get; set; } = null;
 
         public AppTask() { }
 
         public override string ToString()
         {
-            return $"Id: {Id}, Description: {Description}, Status: {Status}, CreatedAt: {CreatedAt}, UpdatedAt: {UpdatedAt}";
+            return $"Id: {Id}, Description: {Description}, Status: {Status}, CreatedAt: {CreatedAt}, {(UpdatedAt.HasValue ? $"UpdatedAt: {UpdatedAt}" : "")}";
         }
     }
 }

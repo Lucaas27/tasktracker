@@ -14,9 +14,9 @@ namespace TaskTracker.Services
             _filemetadata = filemetadata;
         }
 
-        private DateTime? ParseDateTime(string dateTimeString)
+        private DateTime ParseDateTime(string dateTimeString)
         {
-            return DateTime.TryParse(dateTimeString, out DateTime parsedDateTime) ? parsedDateTime : null;
+            return DateTime.TryParse(dateTimeString, out DateTime parsedDateTime) ? parsedDateTime : DateTime.MinValue;
         }
 
         public List<AppTask> LoadFromFile()

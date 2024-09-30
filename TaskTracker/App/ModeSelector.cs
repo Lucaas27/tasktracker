@@ -37,7 +37,7 @@ namespace TaskTracker.App
 
             if (taskManager == null)
             {
-                _interaction.PrintMessage("Exiting Task Tracker. Goodbye!", ConsoleMessageType.Info);
+                _interaction.PrintMessage("Exiting Task Tracker... Goodbye!", ConsoleMessageType.Info);
                 return;
             }
 

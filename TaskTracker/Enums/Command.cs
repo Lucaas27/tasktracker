@@ -5,9 +5,8 @@ namespace TaskTracker.Interaction
         AddTask = 1,
         EditTask,
         DeleteTask,
+        ListTasksByStatus,
         ListAllTasks,
-        ListDoneTasks,
-        ListTodoTasks,
         MarkTaskStatus,
         Exit
     }

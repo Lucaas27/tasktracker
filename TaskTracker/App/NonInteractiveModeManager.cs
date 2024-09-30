@@ -18,17 +18,11 @@ namespace TaskTracker.App
             throw new NotImplementedException();
         }
 
-        protected override void ListTodoTasks()
-        {
-            throw new NotImplementedException();
-        }
-
-        protected override void ListDoneTasks()
-        {
-            throw new NotImplementedException();
-        }
-
         protected override void ListAllTasks()
+        {
+            throw new NotImplementedException();
+        }
+        protected override void ListTasksByStatus()
         {
             throw new NotImplementedException();
         }
@@ -37,7 +31,7 @@ namespace TaskTracker.App
             throw new NotImplementedException();
         }
 
-        protected override void EditTask()
+        protected override void UpdateTask()
         {
             throw new NotImplementedException();
         }
